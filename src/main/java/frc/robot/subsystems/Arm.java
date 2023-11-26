@@ -8,17 +8,26 @@ import org.carlmontrobotics.lib199.MotorConfig;
 import org.carlmontrobotics.lib199.MotorControllerFactory;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
   private CANSparkMax wall = MotorControllerFactory.createSparkMax(Constants.MotorPort.kArmID, MotorConfig.NEO);
   private RelativeEncoder encoder = wall.getEncoder();
+  public static double forwardBackward = 0.1;
   /** Creates a new Arm. */
   public Arm() {}
 
+  public void swap(){
+    forwardBackward = -forwardBackward;
+    SmartDashboard.putNumber("wanted motor direction", forwardBackward);
+  }
+ 
   public void move(){
-    wall.set(0.1);
+    wall.set(forwardBackward);
+    SmartDashboard.putNumber("moving motor direction", forwardBackward);
   }
 
   public void stop(){
