@@ -22,7 +22,7 @@ public final class Constants {
     public static class MotorPort {
         public static final int kLeftDriveID = 6;
         public static final int kRightDriveID = 5;
-        public static final int kArmID = 2;
+        public static final int kArmID = 20;
     }
 
     public static class Drivetrain {
