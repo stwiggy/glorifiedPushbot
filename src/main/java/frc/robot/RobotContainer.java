@@ -23,8 +23,8 @@ public class RobotContainer {
 
   private void configureBindings() {
     JoystickButton buttonA = new JoystickButton(controller, Constants.OI.kButtonA);
-    buttonA.onTrue(new InstantCommand(arm::swap));
-    buttonA.onTrue(new MoveArm(arm));
+    //buttonA.onTrue(new InstantCommand(arm::swap));
+    //buttonA.onTrue(new MoveArm(arm));
     new JoystickButton(controller, Constants.OI.kButtonX).onTrue(new InstantCommand(() -> {drivetrain.isTank = true;}));
     new JoystickButton(controller, Constants.OI.kButtonY).onTrue(new InstantCommand(() -> {drivetrain.isTank = false;}));
   }

@@ -7,9 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Arm;
 
 public class Autonomous extends CommandBase {
   Drivetrain drivetrain;
+  Arm arm;
   private final Timer time = new Timer();
   
   public Autonomous(Drivetrain dt) {
@@ -20,6 +22,7 @@ public class Autonomous extends CommandBase {
   public void initialize() {
     time.start();
     drivetrain.tank(0.5, 0.5);
+    //new MoveArm(arm);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -16,18 +16,23 @@ import frc.robot.Constants;
 public class Arm extends SubsystemBase {
   private CANSparkMax wall = MotorControllerFactory.createSparkMax(Constants.MotorPort.kArmID, MotorConfig.NEO);
   private RelativeEncoder encoder = wall.getEncoder();
-  public static double forwardBackward = 0.1;
+  //public static double forwardBackward = 0.2;
   /** Creates a new Arm. */
   public Arm() {}
 
+  /*
   public void swap(){
     forwardBackward = -forwardBackward;
     SmartDashboard.putNumber("wanted motor direction", forwardBackward);
   }
+  */
+  public void autoMove(){
+    wall.set(Constants.Arm.kArmDownSpeed);
+  }
  
   public void move(){
-    wall.set(forwardBackward);
-    SmartDashboard.putNumber("moving motor direction", forwardBackward);
+    wall.set(Constants.Arm.kArmUpSpeed);
+    SmartDashboard.putNumber("moving motor direction", Constants.Arm.kArmUpSpeed);
   }
 
   public void stop(){
@@ -39,5 +44,7 @@ public class Arm extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    wall.set(0);
+  }
 }

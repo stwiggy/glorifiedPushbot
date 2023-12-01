@@ -37,10 +37,32 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     if (isTank){
-      tank(0 - controller.getLeftY(), 0 - controller.getRightY());
+      if ((0 - controller.getLeftY() < 0.1 && 0 - controller.getLeftY() > -0.1) && (0 - controller.getRightY() < 0.1 && 0 - controller.getRightY() > -0.1)){
+        tank(0,0);
+      }
+      else if (0 - controller.getLeftY() < 0.1 && 0 - controller.getLeftY() > -0.1){
+        tank(0, 0 - controller.getRightY());
+      }
+      else if (0 - controller.getRightY() < 0.1 && 0 - controller.getRightY() > -0.1){
+        tank(0 - controller.getLeftY(), 0);
+      }
+      else{
+        tank(0 - controller.getLeftY(), 0 - controller.getRightY());
+      }
     }
     else{
-      arcade(0 - controller.getLeftY(), 0 - controller.getRightX());
+      if ((0 - controller.getLeftY() < 0.1 && 0 - controller.getLeftY() > -0.1) && (0 - controller.getRightX() < 0.1 && 0 - controller.getRightX() > -0.1)){
+        arcade(0,0);
+      }
+      else if (0 - controller.getLeftY() < 0.1 && 0 - controller.getLeftY() > -0.1){
+        arcade(0, 0 - controller.getRightY());
+      }
+      else if (0 - controller.getRightX() < 0.1 && 0 - controller.getRightX() > -0.1){
+        arcade(0 - controller.getLeftY(), 0);
+      }
+      else{
+        arcade(0 - controller.getLeftY(), 0 - controller.getRightX());
+      }
     }
 
   }

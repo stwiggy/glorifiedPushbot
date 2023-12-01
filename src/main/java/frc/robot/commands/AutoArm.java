@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
-public class MoveArm extends CommandBase {
+public class AutoArm extends CommandBase {
   Arm arm;
-  public MoveArm(Arm a) {
+  public AutoArm(Arm a) {
     addRequirements(arm = a);
   }
 

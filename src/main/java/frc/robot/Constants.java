@@ -14,11 +14,14 @@ package frc.robot;
  */
 public final class Constants {
     public static class Arm {
-        public static final double kArmTarget = 5.5 / (Math.PI * 1.2);
+        public static final double kArmDownSpeed = 0.2;
+        public static final double kArmUpSpeed = -kArmDownSpeed;
+        public static final double kArmDownTarget = 7 / (Math.PI * 1.2);
+        public static final double kArmUpTarget = -kArmDownTarget;
     }
     public static class MotorPort {
-        public static final int kLeftDriveID = 1;
-        public static final int kRightDriveID = 9;
+        public static final int kLeftDriveID = 6;
+        public static final int kRightDriveID = 5;
         public static final int kArmID = 2;
     }
 
