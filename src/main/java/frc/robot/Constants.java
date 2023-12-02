@@ -30,6 +30,7 @@ public final class Constants {
         public static final double kRightSlowdown = 0.8;
         public static final double kTurnSlowdown = 0.6;
         public static final double kSpeedSlowdown = 0.3;
+        public static final double kDeadbandRange = 0.03;
     }
 
     public static class OI {

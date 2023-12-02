@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.Autonomous;
+import edu.wpi.first.math.MathUtil;
 
 public class Drivetrain extends SubsystemBase {
   private CANSparkMax leftMotor = MotorControllerFactory.createSparkMax(Constants.MotorPort.kLeftDriveID, MotorConfig.NEO);
@@ -22,19 +23,13 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain(XboxController controller) {this.controller = controller;}
 
   public void tank(double leftY, double rightY){
-    if (leftY > 0.1 && leftY < 0.1){
-      leftY = 0;
-    }
-    if (rightY > 0.1 && rightY < 0.1){
-      rightY = 0;
-    }
-    leftMotor.set(leftY * Constants.Drivetrain.kLeftSlowdown);
-    rightMotor.set(-rightY * Constants.Drivetrain.kRightSlowdown);
+    leftMotor.set(leftY * leftY * Constants.Drivetrain.kLeftSlowdown);
+    rightMotor.set(-(rightY * rightY * Constants.Drivetrain.kRightSlowdown));
   }
 
   public void arcade(double speed, double turn){
-    speed *= Constants.Drivetrain.kSpeedSlowdown;
-    turn *= Constants.Drivetrain.kTurnSlowdown;
+    speed = speed * speed * Constants.Drivetrain.kSpeedSlowdown;
+    turn = turn * turn * Constants.Drivetrain.kTurnSlowdown;
     double left = speed + turn;
     double right = speed - turn;
 
@@ -47,22 +42,10 @@ public class Drivetrain extends SubsystemBase {
     isAuto = Autonomous.isAuto();
     if (isAuto){return;}
     if (isTank){
-      tank(0 - controller.getLeftY(), 0 - controller.getRightY());
+      tank(MathUtil.applyDeadband(Constants.Drivetrain.kDeadbandRange, 0 - controller.getLeftY()), MathUtil.applyDeadband(Constants.Drivetrain.kDeadbandRange, 0 - controller.getRightY()));
     }
     else{
-      if ((0 - controller.getLeftY() < 0.1 && 0 - controller.getLeftY() > -0.1) && (0 - controller.getRightX() < 0.1 && 0 - controller.getRightX() > -0.1)){
-        arcade(0,0);
-      }
-      else if (0 - controller.getLeftY() < 0.1 && 0 - controller.getLeftY() > -0.1){
-        arcade(0, 0 - controller.getRightY());
-      }
-      else if (0 - controller.getRightX() < 0.1 && 0 - controller.getRightX() > -0.1){
-        arcade(0 - controller.getLeftY(), 0);
-      }
-      else{
-        arcade(0 - controller.getLeftY(), 0 - controller.getRightX());
+      arcade(MathUtil.applyDeadband(Constants.Drivetrain.kDeadbandRange, 0 - controller.getLeftY()), MathUtil.applyDeadband(Constants.Drivetrain.kDeadbandRange, 0 - controller.getRightX()));
       }
     }
-
-  }
 }
