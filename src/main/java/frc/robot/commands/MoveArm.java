@@ -17,6 +17,7 @@ public class MoveArm extends CommandBase {
 
   @Override
   public void initialize() {
+    arm.setPosition();
     arm.move();
     SmartDashboard.putNumber("target rotations", Constants.Arm.kArmUpSpeed);
   }

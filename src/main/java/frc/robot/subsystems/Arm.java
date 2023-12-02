@@ -26,6 +26,10 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("wanted motor direction", forwardBackward);
   }
   */
+  public void reset(){
+    encoder.setPosition(0);
+  }
+
   public void autoMove(){
     wall.set(Constants.Arm.kArmDownSpeed);
   }
