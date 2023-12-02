@@ -45,6 +45,5 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
-    wall.set(0);
   }
 }
