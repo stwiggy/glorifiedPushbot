@@ -13,16 +13,22 @@ public class Autonomous extends CommandBase {
   Drivetrain drivetrain;
   Arm arm;
   private final Timer time = new Timer();
+  private static boolean auto = false;
   
   public Autonomous(Drivetrain dt) {
     addRequirements(drivetrain = dt);
   }
 
+  public static boolean isAuto(){
+    return auto;
+  }
+
   @Override
   public void initialize() {
+    auto = true;
+    time.reset();
     time.start();
     drivetrain.tank(0.5, 0.5);
-    //new MoveArm(arm);
   }
 
   @Override
@@ -31,10 +37,11 @@ public class Autonomous extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drivetrain.tank(0, 0);
+    auto = false;
   }
 
   @Override
   public boolean isFinished() {
-    return time.get() > 5;
+    return time.get() > 15;
   }
 }

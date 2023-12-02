@@ -14,9 +14,9 @@ package frc.robot;
  */
 public final class Constants {
     public static class Arm {
-        public static final double kArmDownSpeed = 0.2;
+        public static final double kArmDownSpeed = 0.7;
         public static final double kArmUpSpeed = -kArmDownSpeed;
-        public static final double kArmDownTarget = 7 / (Math.PI * 1.2);
+        public static final double kArmDownTarget = 2;
         public static final double kArmUpTarget = -kArmDownTarget;
     }
     public static class MotorPort {

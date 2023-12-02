@@ -33,6 +33,6 @@ public class MoveArm extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return arm.getRotations() >= Constants.Arm.kArmUpSpeed;
+    return arm.getRotations() >= Constants.Arm.kArmUpTarget;
   }
 }

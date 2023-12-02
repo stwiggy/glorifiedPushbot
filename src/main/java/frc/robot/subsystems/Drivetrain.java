@@ -10,16 +10,24 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.Autonomous;
 
 public class Drivetrain extends SubsystemBase {
   private CANSparkMax leftMotor = MotorControllerFactory.createSparkMax(Constants.MotorPort.kLeftDriveID, MotorConfig.NEO);
   private CANSparkMax rightMotor = MotorControllerFactory.createSparkMax(Constants.MotorPort.kRightDriveID, MotorConfig.NEO);
   private XboxController controller;
   public boolean isTank = true;
+  private boolean isAuto;
 
   public Drivetrain(XboxController controller) {this.controller = controller;}
 
   public void tank(double leftY, double rightY){
+    if (leftY > 0.1 && leftY < 0.1){
+      leftY = 0;
+    }
+    if (rightY > 0.1 && rightY < 0.1){
+      rightY = 0;
+    }
     leftMotor.set(leftY * Constants.Drivetrain.kLeftSlowdown);
     rightMotor.set(-rightY * Constants.Drivetrain.kRightSlowdown);
   }
@@ -36,19 +44,10 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
+    isAuto = Autonomous.isAuto();
+    if (isAuto){return;}
     if (isTank){
-      if ((0 - controller.getLeftY() < 0.1 && 0 - controller.getLeftY() > -0.1) && (0 - controller.getRightY() < 0.1 && 0 - controller.getRightY() > -0.1)){
-        tank(0,0);
-      }
-      else if (0 - controller.getLeftY() < 0.1 && 0 - controller.getLeftY() > -0.1){
-        tank(0, 0 - controller.getRightY());
-      }
-      else if (0 - controller.getRightY() < 0.1 && 0 - controller.getRightY() > -0.1){
-        tank(0 - controller.getLeftY(), 0);
-      }
-      else{
-        tank(0 - controller.getLeftY(), 0 - controller.getRightY());
-      }
+      tank(0 - controller.getLeftY(), 0 - controller.getRightY());
     }
     else{
       if ((0 - controller.getLeftY() < 0.1 && 0 - controller.getLeftY() > -0.1) && (0 - controller.getRightX() < 0.1 && 0 - controller.getRightX() > -0.1)){
