@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Autonomous;
 import frc.robot.commands.MoveArm;
+import frc.robot.commands.PLEASEWORK;
+import frc.robot.commands.PLEASEWORK2;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Arm;
 
@@ -23,7 +25,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    JoystickButton buttonA = new JoystickButton(controller, Constants.OI.kButtonA);
+    new JoystickButton(controller, Constants.OI.kButtonA).whileTrue(new PLEASEWORK(arm));
+    new JoystickButton(controller, Constants.OI.kButtonB).whileTrue(new PLEASEWORK2(arm));
     //buttonA.onTrue(new InstantCommand(arm::swap));
     //buttonA.onTrue(new MoveArm(arm));
     new JoystickButton(controller, Constants.OI.kButtonX).onTrue(new InstantCommand(() -> {drivetrain.isTank = true;}));
@@ -33,4 +36,5 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return new ParallelCommandGroup(new Autonomous(drivetrain), new MoveArm(arm));
   }
+
 }

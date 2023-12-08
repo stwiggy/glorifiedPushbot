@@ -4,35 +4,37 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
-public class AutoArm extends CommandBase {
+
+public class PLEASEWORK2 extends CommandBase {
   Arm arm;
-  public AutoArm(Arm a) {
+  /** Creates a new PLEASEWORK2. */
+  public PLEASEWORK2(Arm a) {
     addRequirements(arm = a);
   }
 
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    arm.up();
-    SmartDashboard.putNumber("target rotations", Constants.Arm.kArmUpSpeed);
+    arm.down();
   }
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("current rotations", arm.getRotations());
   }
 
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     arm.stop();
   }
 
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return arm.getRotations() >= Constants.Arm.kArmDownSpeed;
+    return false;
   }
 }

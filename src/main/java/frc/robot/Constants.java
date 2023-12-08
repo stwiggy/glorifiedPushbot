@@ -36,6 +36,7 @@ public final class Constants {
     public static class OI {
         public static final int kcontrollerPort = 0;
         public static final int kButtonA = 1;
+        public static final int kButtonB = 2;
         public static final int kButtonX = 3;
         public static final int kButtonY = 4;
     }

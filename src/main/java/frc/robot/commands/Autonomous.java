@@ -14,7 +14,7 @@ public class Autonomous extends CommandBase {
   Drivetrain drivetrain;
   Arm arm;
   private final Timer time = new Timer();
-  private static boolean auto = false;
+  public static boolean auto = false;
   
   public Autonomous(Drivetrain dt) {
     addRequirements(drivetrain = dt);

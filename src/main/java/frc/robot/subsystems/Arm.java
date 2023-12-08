@@ -34,10 +34,16 @@ public class Arm extends SubsystemBase {
     wall.set(Constants.Arm.kArmDownSpeed);
   }
  
-  public void move(){
+  public void up(){
     wall.set(Constants.Arm.kArmUpSpeed);
     SmartDashboard.putNumber("moving motor direction", Constants.Arm.kArmUpSpeed);
   }
+
+  public void down(){
+    wall.set(Constants.Arm.kArmDownSpeed);
+    SmartDashboard.putNumber("moving motor direction", Constants.Arm.kArmUpSpeed);
+  }
+
 
   public void stop(){
     wall.set(0);

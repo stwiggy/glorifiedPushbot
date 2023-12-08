@@ -18,7 +18,7 @@ public class Drivetrain extends SubsystemBase {
   private CANSparkMax rightMotor = MotorControllerFactory.createSparkMax(Constants.MotorPort.kRightDriveID, MotorConfig.NEO);
   private XboxController controller;
   public boolean isTank = true;
-  private boolean isAuto;
+  public boolean isAuto = true;
 
   public Drivetrain(XboxController controller) {this.controller = controller;}
 
@@ -36,16 +36,18 @@ public class Drivetrain extends SubsystemBase {
     leftMotor.set(left);
     rightMotor.set(right);
   }
-
+  
   @Override
   public void periodic() {
     isAuto = Autonomous.isAuto();
-    if (isAuto){return;}
-    if (isTank){
+    if (isTank && !isAuto){
       tank(MathUtil.applyDeadband(Constants.Drivetrain.kDeadbandRange, 0 - controller.getLeftY()), MathUtil.applyDeadband(Constants.Drivetrain.kDeadbandRange, 0 - controller.getRightY()));
     }
-    else{
+    else if (!isTank && !isAuto){
       arcade(MathUtil.applyDeadband(Constants.Drivetrain.kDeadbandRange, 0 - controller.getLeftY()), MathUtil.applyDeadband(Constants.Drivetrain.kDeadbandRange, 0 - controller.getRightX()));
-      }
     }
+    else{
+      return ;
+    }
+  }
 }
